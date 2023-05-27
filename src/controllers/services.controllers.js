@@ -15,6 +15,4 @@ const createServices = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  createServices,
-};
+module.exports = { createServices };
