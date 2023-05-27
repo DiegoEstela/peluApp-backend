@@ -3,13 +3,15 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 8080;
 require("dotenv").config();
-const usersRoutes = require("./src/routes/user.routes");
+const customerRoutes = require("./src/routes/user.routes");
+const servicesRoutes = require("./src/routes/services.routes");
 
 app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(usersRoutes);
+app.use(customerRoutes);
+app.use(servicesRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Bienvenidx a mi Api");
