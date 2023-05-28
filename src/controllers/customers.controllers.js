@@ -10,7 +10,7 @@ const getAlCustomer = async (req, res) => {
   }
 };
 
-const createCostumers = async (req, res, next) => {
+const createCustomers = async (req, res, next) => {
   try {
     const { nombre, apellido, fecha_nacimiento, telefono } = req.body;
     const fechaCreacion = moment().format("YYYY-MM-DD");
@@ -28,7 +28,25 @@ const createCostumers = async (req, res, next) => {
 
     const result = await pool.query(query, values);
     if (result) {
-      res.send("creating a costumer");
+      res.send("creating a custumer");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateCustomers = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { nombre, apellido, fecha_nacimiento, telefono } = req.body;
+    const query =
+      "UPDATE customers SET nombre = $1, apellido = $2, fecha_nacimiento = $3, telefono = $4 WHERE id = $5 RETURNING *";
+    const values = [nombre, apellido, fecha_nacimiento, telefono, id];
+    const result = await pool.query(query, values);
+    if (result.rowCount === 0) {
+      res.status(404).send("El producto no existe.");
+    } else {
+      res.json(result.rows[0]);
     }
   } catch (error) {
     console.log(error);
@@ -37,5 +55,6 @@ const createCostumers = async (req, res, next) => {
 
 module.exports = {
   getAlCustomer,
-  createCostumers,
+  createCustomers,
+  updateCustomers,
 };

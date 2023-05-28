@@ -1,5 +1,14 @@
 const pool = require("../db/index");
 
+const getAlServices = async (req, res) => {
+  try {
+    const allServices = await pool.query("SELECT * FROM services");
+    res.json(allServices.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const createServices = async (req, res, next) => {
   try {
     const { concepto } = req.body;
@@ -15,4 +24,4 @@ const createServices = async (req, res, next) => {
   }
 };
 
-module.exports = { createServices };
+module.exports = { getAlServices, createServices };
