@@ -6,6 +6,8 @@ require("dotenv").config();
 const customerRoutes = require("./src/routes/customers.routes");
 const servicesRoutes = require("./src/routes/services.routes");
 const productsRoutes = require("./src/routes/produtcs.routes");
+const revenuesRoutes = require("./src/routes/revenues.routes");
+const expensesRoutes = require("./src/routes/expenses.routes");
 
 app.use(cors());
 
@@ -14,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(customerRoutes);
 app.use(servicesRoutes);
 app.use(productsRoutes);
+app.use(revenuesRoutes);
+app.use(expensesRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Bienvenidx a mi Api");

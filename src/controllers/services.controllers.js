@@ -1,6 +1,6 @@
 const pool = require("../db/index");
 
-const getAlServices = async (req, res) => {
+const getAllServices = async (req, res) => {
   try {
     const allServices = await pool.query("SELECT * FROM services");
     res.json(allServices.rows);
@@ -24,4 +24,4 @@ const createServices = async (req, res, next) => {
   }
 };
 
-module.exports = { getAlServices, createServices };
+module.exports = { getAllServices, createServices };

@@ -1,7 +1,7 @@
 const pool = require("../db/index");
 const moment = require("moment");
 
-const getAlCustomer = async (req, res) => {
+const getAllCustomer = async (req, res) => {
   try {
     const allCustomer = await pool.query("SELECT * FROM customers");
     res.json(allCustomer.rows);
@@ -54,7 +54,7 @@ const updateCustomers = async (req, res, next) => {
 };
 
 module.exports = {
-  getAlCustomer,
+  getAllCustomer,
   createCustomers,
   updateCustomers,
 };
