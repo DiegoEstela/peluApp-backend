@@ -3,7 +3,7 @@ const moment = require("moment");
 
 const getAllRevenues = async (req, res) => {
   try {
-    const allrevenues = await pool.query("SELECT * FROM revenue");
+    const allrevenues = await pool.query("SELECT * FROM revenues");
     res.json(allrevenues.rows);
   } catch (error) {
     console.log(error);
@@ -16,7 +16,7 @@ const createRevenues = async (req, res, next) => {
     const fecha = moment().format("YYYY-MM-DD");
     const hora = moment().format("HH:mm:ss");
     const query =
-      "INSERT INTO revenue (fecha, hora, cliente_id, valor, producto) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+      "INSERT INTO revenues (fecha, hora, cliente_id, valor, producto_id) VALUES ($1, $2, $3, $4, $5) RETURNING *";
     const values = [fecha, hora, cliente_id, valor, producto];
     const result = await pool.query(query, values);
     if (result) {

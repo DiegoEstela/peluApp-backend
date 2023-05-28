@@ -3,7 +3,8 @@ const moment = require("moment");
 
 const getAllCustomer = async (req, res) => {
   try {
-    const allCustomer = await pool.query("SELECT * FROM customers");
+    const query = "SELECT * FROM customers ORDER BY nombre ASC";
+    const allCustomer = await pool.query(query);
     res.json(allCustomer.rows);
   } catch (error) {
     console.log(error);

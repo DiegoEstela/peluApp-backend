@@ -2,7 +2,8 @@ const pool = require("../db/index");
 
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await pool.query("SELECT * FROM products");
+    const query = "SELECT * FROM products ORDER BY concepto ASC";
+    const allProducts = await pool.query(query);
     res.json(allProducts.rows);
   } catch (error) {
     console.log(error);
