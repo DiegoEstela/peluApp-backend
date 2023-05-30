@@ -2,7 +2,9 @@ const pool = require("../db/index");
 
 const getAllServices = async (req, res) => {
   try {
-    const allServices = await pool.query("SELECT * FROM services");
+    const allServices = await pool.query(
+      "SELECT * FROM services ORDER BY concepto ASC"
+    );
     res.json(allServices.rows);
   } catch (error) {
     console.log(error);
