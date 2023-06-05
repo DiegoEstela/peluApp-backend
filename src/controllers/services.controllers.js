@@ -7,7 +7,7 @@ const getAllServices = async (req, res) => {
     const values = [false];
     const result = await pool.query(query, values);
     const services = result.rows;
-    res.status(200).json({ services });
+    res.status(200).json(services);
   } catch (error) {
     console.log(error);
   }
