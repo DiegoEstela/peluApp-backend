@@ -1,5 +1,5 @@
 const pool = require("../db/index");
-const moment = require("moment");
+const moment = require("moment-timezone");
 
 const getAllRevenues = async (req, res) => {
   try {
