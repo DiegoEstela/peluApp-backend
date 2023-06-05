@@ -3,9 +3,12 @@ const moment = require("moment");
 
 const getAllCustomer = async (req, res) => {
   try {
-    const query = "SELECT * FROM customers ORDER BY nombre ASC";
-    const allCustomer = await pool.query(query);
-    res.json(allCustomer.rows);
+    const query =
+      "SELECT * FROM customers WHERE deleted = $1 ORDER BY nombre ASC";
+    const values = [false];
+    const result = await pool.query(query, values);
+    const customers = result.rows;
+    res.status(200).json(customers);
   } catch (error) {
     console.log(error);
   }
@@ -13,20 +16,23 @@ const getAllCustomer = async (req, res) => {
 
 const createCustomers = async (req, res, next) => {
   try {
-    const { nombre, apellido, fecha_nacimiento, telefono } = req.body;
+    const { idUsuario, nombre, apellido, fecha_nacimiento, telefono } =
+      req.body;
     const zonaHoraria = moment.tz.guess();
     const fechaLocal = moment().tz(zonaHoraria);
     const fechaCreacion = fechaLocal.format("YYYY-MM-DD");
     const fechaBaja = "";
     const query =
-      "INSERT INTO customers (nombre, apellido, fecha_nacimiento, telefono, fecha_creacion, fecha_baja) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
+      "INSERT INTO customers ( idUsuario, nombre, apellido, fecha_nacimiento, telefono, fecha_creacion, fecha_baja, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
     const values = [
+      idUsuario,
       nombre,
       apellido,
       fecha_nacimiento,
       telefono,
       fechaCreacion,
       fechaBaja,
+      false,
     ];
 
     const result = await pool.query(query, values);
