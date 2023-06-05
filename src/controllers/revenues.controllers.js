@@ -12,21 +12,21 @@ const getAllRevenues = async (req, res) => {
 
 const createRevenues = async (req, res, next) => {
   try {
-    const { IdUsuario, idCliente, IdProducto, monto, medioPago } = req.body;
+    const { IdUsuario, idCliente, idProducto, monto, metodoPago } = req.body;
     const zonaHoraria = moment.tz.guess();
     const fechaLocal = moment().tz(zonaHoraria);
     const fecha = fechaLocal.format("YYYY-MM-DD");
     const hora = fechaLocal.format("HH:mm:ss");
     const query =
-      "INSERT INTO revenues (IdUsuario, IdProducto, idCliente ,fecha, hora , monto, medioPago) VALUES ($1, $2, $3, $4, $5 ,$6, $7, $8) RETURNING *";
+      "INSERT INTO revenues (IdUsuario, idProducto, idCliente ,fecha, hora , monto, metodoPago) VALUES ($1, $2, $3, $4, $5 ,$6, $7) RETURNING *";
     const values = [
       IdUsuario,
-      IdProducto,
+      idProducto,
       idCliente,
       fecha,
       hora,
       monto,
-      medioPago,
+      metodoPago,
     ];
     const result = await pool.query(query, values);
     if (result) {
