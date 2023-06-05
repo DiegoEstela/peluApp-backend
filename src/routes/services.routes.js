@@ -2,12 +2,12 @@ const { Router } = require("express");
 const {
   getAllServices,
   createServices,
-  updateServices,
+  unsubscribeServices,
 } = require("../controllers/services.controllers");
 const router = Router();
 
 router.get("/services", getAllServices);
 router.post("/services", createServices);
-router.put("/services/:id", updateServices);
+router.put("/unsubscribeServices/:id", unsubscribeServices);
 
 module.exports = router;

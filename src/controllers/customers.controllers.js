@@ -62,8 +62,29 @@ const updateCustomers = async (req, res, next) => {
   }
 };
 
+const unsubscribeCustomers = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const zonaHoraria = moment.tz.guess();
+    const fechaLocal = moment().tz(zonaHoraria);
+    const fechaBaja = fechaLocal.format("YYYY-MM-DD");
+    const query =
+      "UPDATE customers SET deleted = $1, fecha_baja = $2 WHERE idcliente = $3";
+    const values = [true, fechaBaja, id];
+    const result = await pool.query(query, values);
+    if (result.rowCount === 0) {
+      res.status(404).send("El producto no existe.");
+    } else {
+      res.json(result.rows[0]);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getAllCustomer,
   createCustomers,
   updateCustomers,
+  unsubscribeCustomers,
 };

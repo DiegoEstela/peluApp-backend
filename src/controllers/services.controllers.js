@@ -29,7 +29,7 @@ const createServices = async (req, res, next) => {
   }
 };
 
-const updateServices = async (req, res, next) => {
+const unsubscribeServices = async (req, res, next) => {
   try {
     const { id } = req.params;
     const query = "UPDATE services SET deleted = $1 WHERE idServicio = $2";
@@ -37,11 +37,11 @@ const updateServices = async (req, res, next) => {
 
     const result = await pool.query(query, values);
     if (result) {
-      res.status(200).json({ message: "creating a services" });
+      res.status(200).json({ message: "unsubscribe a services" });
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { getAllServices, createServices, updateServices };
+module.exports = { getAllServices, createServices, unsubscribeServices };
