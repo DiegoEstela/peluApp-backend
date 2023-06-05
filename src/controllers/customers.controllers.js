@@ -14,7 +14,9 @@ const getAllCustomer = async (req, res) => {
 const createCustomers = async (req, res, next) => {
   try {
     const { nombre, apellido, fecha_nacimiento, telefono } = req.body;
-    const fechaCreacion = moment().format("YYYY-MM-DD");
+    const zonaHoraria = moment.tz.guess();
+    const fechaLocal = moment().tz(zonaHoraria);
+    const fechaCreacion = fechaLocal.format("YYYY-MM-DD");
     const fechaBaja = "";
     const query =
       "INSERT INTO customers (nombre, apellido, fecha_nacimiento, telefono, fecha_creacion, fecha_baja) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";

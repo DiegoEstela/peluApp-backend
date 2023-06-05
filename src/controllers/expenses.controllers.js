@@ -13,7 +13,9 @@ const getAllExpenses = async (req, res) => {
 const createExpenses = async (req, res, next) => {
   try {
     const { idUsuario, idServicio, monto, metodoPago } = req.body;
-    const fecha = moment().format("YYYY-MM-DD");
+    const zonaHoraria = moment.tz.guess();
+    const fechaLocal = moment().tz(zonaHoraria);
+    const fecha = fechaLocal.format("YYYY-MM-DD");
     const query =
       "INSERT INTO expenses (fecha,idUsuario, idServicio, monto ,metodoPago) VALUES ($1, $2, $3, $4, $5) RETURNING *";
     const values = [fecha, idUsuario, idServicio, monto, metodoPago];
