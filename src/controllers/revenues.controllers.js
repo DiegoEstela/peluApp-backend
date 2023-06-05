@@ -12,17 +12,25 @@ const getAllRevenues = async (req, res) => {
 
 const createRevenues = async (req, res, next) => {
   try {
-    const { cliente_id, valor, producto } = req.body;
+    const { IdUsuario, idCliente, IdProducto, monto, medioPago } = req.body;
     const zonaHoraria = moment.tz.guess();
     const fechaLocal = moment().tz(zonaHoraria);
     const fecha = fechaLocal.format("YYYY-MM-DD");
     const hora = fechaLocal.format("HH:mm:ss");
     const query =
-      "INSERT INTO revenues (fecha, hora, cliente_id, valor, producto_id) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-    const values = [fecha, hora, cliente_id, valor, producto];
+      "INSERT INTO revenues (IdUsuario, IdProducto, idCliente ,fecha, hora , monto, medioPago) VALUES ($1, $2, $3, $4, $5 ,$6, $7, $8) RETURNING *";
+    const values = [
+      IdUsuario,
+      IdProducto,
+      idCliente,
+      fecha,
+      hora,
+      monto,
+      medioPago,
+    ];
     const result = await pool.query(query, values);
     if (result) {
-      res.send("creating a new revenue");
+      res.status(200).json({ message: "creating a revenue" });
     }
   } catch (error) {
     console.log(error);

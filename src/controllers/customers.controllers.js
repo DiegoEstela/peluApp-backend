@@ -37,7 +37,7 @@ const createCustomers = async (req, res, next) => {
 
     const result = await pool.query(query, values);
     if (result) {
-      res.send("creating a custumer");
+      res.status(200).json({ message: "creating a costumer" });
     }
   } catch (error) {
     console.log(error);
