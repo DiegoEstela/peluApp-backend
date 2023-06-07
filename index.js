@@ -8,6 +8,7 @@ const servicesRoutes = require("./src/routes/services.routes");
 const productsRoutes = require("./src/routes/produtcs.routes");
 const revenuesRoutes = require("./src/routes/revenues.routes");
 const expensesRoutes = require("./src/routes/expenses.routes");
+const accountRoutes = require("./src/routes/accounts.routes");
 
 app.use(cors());
 
@@ -18,9 +19,10 @@ app.use(servicesRoutes);
 app.use(productsRoutes);
 app.use(revenuesRoutes);
 app.use(expensesRoutes);
+app.use(accountRoutes);
 
 app.get("/", async (req, res) => {
-  res.send("Bienvenidx a mi Api");
+  res.send("Api totalBi");
 });
 
 const server = app.listen(PORT, () => {
